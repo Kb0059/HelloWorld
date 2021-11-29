@@ -1,9 +1,29 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage('Git Checkout'){
-            steps{
-            git credentialsId: 'cadfd099-c946-4874-b97e-89cc37b0fd95', url: 'https://github.com/Kb0059/HelloWorld.git'
+    
+    
+    tools{
+    maven 'M3'    
+    }
+    stages {
+        stage('Build') {
+            steps {
+               bat 'mvn clean'
+            }
+        }
+        stage('Compile') {
+            steps {
+               bat 'mvn compile'
+            }
+        }
+        stage('Test') {
+            steps {
+               bat 'mvn test'
+            }
+        }
+        stage('Package') {
+            steps {
+               bat 'mvn package'
             }
         }
     }
